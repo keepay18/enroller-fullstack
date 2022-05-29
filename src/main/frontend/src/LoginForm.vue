@@ -5,6 +5,8 @@
     <label>Hasło</label>
     <input type="password" v-model="user.password">
     <button type="submit">{{ labelOfTheButton }}</button>
+    
+    
   </form>
 </template>
 
@@ -25,6 +27,7 @@
             labelOfTheButton() {
                 return this.buttonLabel || 'Zaloguj się';
             }
+            
         }
     };
 </script>
