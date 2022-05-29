@@ -13,6 +13,7 @@
     <div v-else>
       <button @click="registering=false" :class="!registering ? '' : 'button-clear'">Zaloguj sie</button>
       <button @click="registering=true" :class="registering ? '' : 'button-clear'">Zarejestruj sie</button>
+      <div :class="isErrorMessage ? 'red' : 'green'">{{message}}</div>
       <login-form @login="login($event)" v-if="registering === false"></login-form>
       <login-form @login="register($event)" button-label="Zarejestruj sie" v-else></login-form>
     </div>
@@ -29,7 +30,9 @@
         data() {
             return {
                 registering: false,
-                authenticatedUsername: ""
+                authenticatedUsername: "",
+                message: '',
+                isErrorMessage: false,
             };
         },
         methods: {
@@ -40,6 +43,15 @@
                 this.authenticatedUsername = '';
             },
             register(user){
+               this.$http.post('participants', user)
+              .then(response => {
+              this.message = "udalo sie";
+              this.isErrorMessage = false;
+               })
+              .catch(response => {
+              this.message = "nie udalo sie";
+              this.isErrorMessage = true;
+             });
 
             }
         }
@@ -54,6 +66,13 @@
 
   .logo {
     vertical-align: middle;
+  }
+
+  .red{
+    background: red;
+  }
+  .green{
+    background: green;
   }
 </style>
 
