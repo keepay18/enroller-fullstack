@@ -13,7 +13,8 @@
     <div v-else>
       <button @click="registering=false" :class="!registering ? '' : 'button-clear'">Zaloguj sie</button>
       <button @click="registering=true" :class="registering ? '' : 'button-clear'">Zarejestruj sie</button>
-      <login-form @login="login($event)"></login-form>
+      <login-form @login="login($event)" v-if="registering === false"></login-form>
+      <login-form @login="register($event)" button-label="Zarejestruj sie" v-else></login-form>
     </div>
   </div>
 </template>
@@ -37,6 +38,9 @@
             },
             logout() {
                 this.authenticatedUsername = '';
+            },
+            register(user){
+
             }
         }
     };
